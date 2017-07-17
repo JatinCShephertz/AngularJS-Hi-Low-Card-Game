@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:ng="https://angularjs.org" id="ng-app" ng-app="hiLowGame" data-ng-controller="MainController">
+<head>
+	<title>High or Low?</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	 <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+	 
+	
+</head>
+<body>
+	<div class="game">
+		<div id="cards" class="cards">
+			<img class="cards__img" ng-src='{{player}}'>
+			<p class="cards__text" ng-bind="choice"></p>
+			<p class="cards__text" ng-bind="result"></p>
+			<p ng-show="isRemain" class="cards__text" ng-bind="remain"></p>
+		</div>
+
+		<div id="controls" class="controls">
+			<button ng-show="start" id="start" class="start controls__btn" ng-click="startGame()">Start Game</button>
+			<button ng-show="state" class="lower state controls__btn" ng-click="predictCard('lower')">Lower</button>
+			<button ng-show="state" class="higher state controls__btn" ng-click="predictCard('higher')">Higher</button>
+			<button ng-show="restart" id="restart" class="start controls__btn" ng-click="restartGame()">New Game</button>
+		</div>
+	</div>
+	<script src="jquery.min.js"></script>
+	 <script src="main.js"></script>
+</body>
+</html>
