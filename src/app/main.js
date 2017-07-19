@@ -7,8 +7,10 @@
 angular.module("hiLowGame", [])
          
          .controller("MainController", function($scope,$http) {
-				  
+				  $scope.baseURL = "https://deckofcardsapi.com/api/deck/"
 				  $scope.bootstrapGame = function(){
+					  
+					  $scope.totalScore = 0;
 							$scope.dealer = {
 									deck: '',
 									draw: ''
@@ -21,7 +23,7 @@ angular.module("hiLowGame", [])
 								player: '',
 								drawn: '',
 							};
-							$scope.deck = "https://deckofcardsapi.com/api/deck/new/shuffle/"
+							$scope.deck = $scope.baseURL +"new/shuffle/"
 							
 							$scope.card = null;
 							$scope.shuffle = null;
@@ -35,7 +37,7 @@ angular.module("hiLowGame", [])
 							$scope.remain = ""
 							$scope.game.status = "NEW"
 							
-							$scope.cards = [{'1': 0}, {'2': 1}, {'3': 2}, {'4': 3}, {'5': 4}, {'6': 5}, {'7': 6}, {'8': 7}, {'9': 8}, {'10': 9}, {'J': 10}, {'Q': 11}, {'K': 12}, {'A': 13}];
+							//$scope.cards = [{'1': 0}, {'2': 1}, {'3': 2}, {'4': 3}, {'5': 4}, {'6': 5}, {'7': 6}, {'8': 7}, {'9': 8}, {'10': 9}, {'J': 10}, {'Q': 11}, {'K': 12}, {'A': 13}];
 							
 							$scope.messages = {
 								start: 'Please choose lower or higher!',
@@ -52,7 +54,7 @@ angular.module("hiLowGame", [])
 					$scope.bootstrapGame(); //initializibg game
 					
 					$scope.startGame = function(){
-							$scope.shuffle = "https://deckofcardsapi.com/api/deck/" + $scope.game.deckId + "/shuffle/";
+							$scope.shuffle = $scope.baseURL + $scope.game.deckId + "/shuffle/";
 				  
 							$scope.dealer.deck === '' ? $scope.handleData($scope.deck) : $scope.handleData($scope.shuffle);
 							$scope.start = false
@@ -79,7 +81,7 @@ angular.module("hiLowGame", [])
 					
 					$scope.handleStatus = function () {
 						   //console.log($scope.dealer)
-						   $scope.card = "https://deckofcardsapi.com/api/deck/" + $scope.game.deckId + "/draw/?count=1";
+						   $scope.card = $scope.baseURL + $scope.game.deckId + "/draw/?count=1";
 							switch ($scope.game.status) {
 								case "NEW":
 									$scope.game.status = 'STARTED';
@@ -117,6 +119,7 @@ angular.module("hiLowGame", [])
 							} else if ($scope.dealer.draw.cards[0].value >= $scope.game.drawn && $scope.game.player === 'higher' || $scope.dealer.draw.cards[0].value <= $scope.game.drawn && $scope.game.player === 'lower') {
 								$scope.game.status = 'CORRECT';
 								$scope.result = $scope.messages.correct
+								$scope.totalScore = $scope.totalScore + 1;
 								//$scope.predictCard();
 							} else {
 								$scope.game.status = 'LOSE';
