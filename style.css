@@ -11,11 +11,15 @@ html {
 	text-align: center;
 }
 .cards {
-	height: 350px;
+	height: 370px;
 }
 .cards__img {
 		width: 150px;
 		height: 208px;
+}
+.cards__img 1{
+		width: 100px;
+		height: 100px;
 }
 .cards__text {}
 .controls {
