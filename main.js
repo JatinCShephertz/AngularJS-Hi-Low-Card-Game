@@ -8,8 +8,9 @@ angular.module("hiLowGame", [])
          
          .controller("MainController", function($scope,$http) {
 				  $scope.baseURL = "https://deckofcardsapi.com/api/deck/"
+				  
 				  $scope.bootstrapGame = function(){
-					  
+					  $scope.isLoading = false
 					  $scope.totalScore = 0;
 							$scope.dealer = {
 									deck: '',
@@ -27,7 +28,8 @@ angular.module("hiLowGame", [])
 							
 							$scope.card = null;
 							$scope.shuffle = null;
-							$scope.player = "blank.jpg"  
+							$scope.player = "blank.jpg" 
+							$scope.spinner = "spinner.gif" 							
 							$scope.start = true
 							$scope.restart = false
 							$scope.state = false
@@ -64,10 +66,12 @@ angular.module("hiLowGame", [])
 					}
 					
 					$scope.handleData = function(stateUrl) {
+						  $scope.isLoading = true
 									var promise = $http.get(stateUrl);
 										promise.then(
 											function(payload) {
 												$scope.game.deckId = payload.data.deck_id
+												  $scope.isLoading = false
 												if ($scope.dealer.deck === '') {
 													$scope.dealer.deck = payload.data;
 												}else{

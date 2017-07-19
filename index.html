@@ -10,7 +10,8 @@
 <body>
 	<div class="game">
 		<div id="cards" class="cards">
-			<img class="cards__img" ng-src='{{player}}'>
+			<img ng-show="!isLoading" class="cards__img" ng-src='{{player}}'>
+			<img ng-show="isLoading" class="cards__img1" ng-src='{{spinner}}'>
 			<p class="cards__text" ng-bind="choice"></p>
 			<p class="cards__text" ng-bind="result"></p>
 			<p ng-show="isRemain" class="cards__text" ng-bind="remain"></p>
